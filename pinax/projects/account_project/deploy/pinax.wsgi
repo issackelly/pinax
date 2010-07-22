@@ -1,11 +1,7 @@
-# pinax.wsgi is configured to live in projects/zero_project/deploy.
+# pinax.wsgi is configured to live in projects/account_project/deploy.
 
 import os
 import sys
-
-# redirect sys.stdout to sys.stderr for bad libraries like geopy that uses
-# print statements for optional import exceptions.
-sys.stdout = sys.stderr
 
 from os.path import abspath, dirname, join
 from site import addsitedir
@@ -13,7 +9,7 @@ from site import addsitedir
 sys.path.insert(0, abspath(join(dirname(__file__), "../../")))
 
 from django.conf import settings
-os.environ["DJANGO_SETTINGS_MODULE"] = "zero_project.settings"
+os.environ["DJANGO_SETTINGS_MODULE"] = "account_project.settings"
 
 sys.path.insert(0, join(settings.PROJECT_ROOT, "apps"))
 
