@@ -100,8 +100,8 @@ class Task(models.Model):
     
     def get_absolute_url(self, group=None):
         kwargs = {"id": self.pk}
-        if group:
-            return group.content_bridge.reverse("task_detail", group, kwargs)
+        if self.group:
+            return self.group.content_bridge.reverse("task_detail", self.group, kwargs)
         return reverse("task_detail", kwargs=kwargs)
     
     def denudge(self):
