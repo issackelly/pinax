@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models import Q
 from django.http import HttpResponseRedirect, HttpResponseForbidden, Http404
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
 from django.utils.http import base36_to_int
 from django.utils.translation import ugettext, ugettext_lazy as _
@@ -58,6 +58,11 @@ def group_context(group, bridge):
 
 
 def login(request, **kwargs):
+
+    account_auth_redir = getattr(settings, 'ACCOUNT_AUTHENTICATED_REDIRECT', None)
+
+    if request.user.is_authenticated() and account_auth_redir:
+        return redirect(account_auth_redir)
     
     form_class = kwargs.pop("form_class", LoginForm)
     template_name = kwargs.pop("template_name", "account/login.html")
@@ -107,6 +112,11 @@ def login(request, **kwargs):
 
 
 def signup(request, **kwargs):
+
+    account_auth_redir = getattr(settings, 'ACCOUNT_AUTHENTICATED_REDIRECT', None)
+
+    if request.user.is_authenticated() and account_auth_redir:
+        return redirect(account_auth_redir)
     
     form_class = kwargs.pop("form_class", SignupForm)
     template_name = kwargs.pop("template_name", "account/signup.html")

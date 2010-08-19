@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.http import HttpResponseRedirect, Http404
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.utils.translation import ugettext
 from django.core.exceptions import ObjectDoesNotExist
@@ -41,6 +41,11 @@ def group_context(group, bridge):
 
 
 def signup(request, **kwargs):
+
+    account_auth_redir = getattr(settings, 'ACCOUNT_AUTHENTICATED_REDIRECT', None)
+
+    if request.user.is_authenticated() and account_auth_redir:
+        return redirect(account_auth_redir)
     
     form_class = kwargs.pop("form_class", SignupForm)
     template_name = kwargs.pop("template_name", "account/signup.html")
