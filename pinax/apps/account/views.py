@@ -59,10 +59,10 @@ def group_context(group, bridge):
 
 def login(request, **kwargs):
 
-    account_auth_redir = getattr(settings, 'ACCOUNT_AUTHENTICATED_REDIRECT', None)
+    authenticated_redirect = getattr(settings, "ACCOUNT_AUTHENTICATED_REDIRECT", None)
 
-    if request.user.is_authenticated() and account_auth_redir:
-        return redirect(account_auth_redir)
+    if request.user.is_authenticated() and authenticated_redirect:
+        return redirect(authenticated_redirect)
     
     form_class = kwargs.pop("form_class", LoginForm)
     template_name = kwargs.pop("template_name", "account/login.html")
@@ -113,10 +113,10 @@ def login(request, **kwargs):
 
 def signup(request, **kwargs):
 
-    account_auth_redir = getattr(settings, 'ACCOUNT_AUTHENTICATED_REDIRECT', None)
+    authenticated_redirect = getattr(settings, "ACCOUNT_AUTHENTICATED_REDIRECT", None)
 
-    if request.user.is_authenticated() and account_auth_redir:
-        return redirect(account_auth_redir)
+    if request.user.is_authenticated() and authenticated_redirect:
+        return redirect(authenticated_redirect)
     
     form_class = kwargs.pop("form_class", SignupForm)
     template_name = kwargs.pop("template_name", "account/signup.html")
