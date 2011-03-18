@@ -9,6 +9,7 @@ PINAX_ROOT = os.path.abspath(os.path.dirname(pinax.__file__))
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
 # tells Pinax to use the default theme
+PINAX_THEME_ROOT = PINAX_ROOT
 PINAX_THEME = "default"
 
 DEBUG = True
@@ -120,8 +121,10 @@ ROOT_URLCONF = "zero_project.urls"
 
 TEMPLATE_DIRS = [
     os.path.join(PROJECT_ROOT, "templates"),
-    os.path.join(PINAX_ROOT, "themes", PINAX_THEME, "templates"),
+    os.path.join(PINAX_THEME_ROOT, "themes", PINAX_THEME, "templates"),
 ]
+if PINAX_THEME_ROOT is not PINAX_ROOT:
+    TEMPLATE_DIRS.append(os.path.join(PINAX_ROOT, "themes", PINAX_THEME, "templates"))
 
 TEMPLATE_CONTEXT_PROCESSORS = [
     "django.contrib.auth.context_processors.auth",
